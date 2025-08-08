@@ -68,7 +68,7 @@ const ContactPage = () => {
                     <input
                       id="emailInfo"
                       type="email"
-                      value="Alex@valhallalogisticsllc.com"
+                      value="henry@vallhallalogisticllc.com"
                       readOnly
                       className="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100 text-blue-700"
                     />
@@ -83,7 +83,7 @@ const ContactPage = () => {
                     <input
                       id="emailInfo"
                       type="email"
-                      value="Alex@valhallalogisticsllc.com"
+                      value="henry@vallhallalogisticllc.com"
                       readOnly
                       className="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100 text-blue-700"
                     />
