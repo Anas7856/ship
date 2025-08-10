@@ -4,6 +4,7 @@ import dri from "../../public/dri.jpg";
 import ser2 from "../../public/ser2.jpg";
 import ser3 from "../../public/ser3.jpg";
 import ser4 from "../../public/ser4.jpg";
+import { Link } from "react-router-dom";
 const leadershipTeam = [
   {
     name: "John Doe",
@@ -167,18 +168,18 @@ const AboutPage = () => (
           logistics operations.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a
-            href="/agreement"
+          <Link
+            to={"/agreement"}
             className="inline-flex items-center justify-center px-8 py-4 bg-white text-blue-900 rounded-lg hover:bg-gray-100 transition-colors duration-200 font-semibold text-lg"
           >
             <FileText className="w-5 h-5 mr-2" /> Send an Agreement
-          </a>
-          <a
-            href="/contact"
+          </Link>
+          <Link
+            to={"/contact"}
             className="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white rounded-lg hover:bg-white hover:text-blue-900 transition-all duration-200 font-semibold text-lg"
           >
             <Mail className="w-5 h-5 mr-2" /> Contact Us
-          </a>
+          </Link>
         </div>
       </div>
     </section>
