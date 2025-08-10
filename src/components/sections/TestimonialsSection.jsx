@@ -1,6 +1,7 @@
-import React from 'react';
-import { Star, Quote, Users } from 'lucide-react';
-import truck from '../../assets/second.jpeg';
+import React from "react";
+import { Star, Quote, Users } from "lucide-react";
+import truck from "../../assets/second.jpeg";
+import { Link } from "react-router-dom";
 
 const TestimonialsSection = () => {
   const testimonials = [
@@ -67,7 +68,8 @@ const TestimonialsSection = () => {
             Reviews
           </h2>
           <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
-            Watch the video and understand why thousands of people are already using our services and are protected.
+            Watch the video and understand why thousands of people are already
+            using our services and are protected.
           </p>
         </div>
 
@@ -111,7 +113,10 @@ const TestimonialsSection = () => {
             >
               <div className="flex items-center mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                  <Star
+                    key={i}
+                    className="w-5 h-5 text-yellow-400 fill-current"
+                  />
                 ))}
               </div>
               <div className="mb-6">
@@ -132,8 +137,12 @@ const TestimonialsSection = () => {
                   <div className="font-semibold text-gray-900 text-sm sm:text-base">
                     {testimonial.name}
                   </div>
-                  <div className="text-sm text-gray-600">{testimonial.role}</div>
-                  <div className="text-sm text-blue-600">{testimonial.company}</div>
+                  <div className="text-sm text-gray-600">
+                    {testimonial.role}
+                  </div>
+                  <div className="text-sm text-blue-600">
+                    {testimonial.company}
+                  </div>
                 </div>
               </div>
             </div>
@@ -148,21 +157,22 @@ const TestimonialsSection = () => {
                 Join Our Satisfied Customers
               </h3>
               <p className="text-base sm:text-lg lg:text-xl mb-8 opacity-90">
-                Experience the reliability and efficiency that has made thousands of businesses trust us with their logistics needs.
+                Experience the reliability and efficiency that has made
+                thousands of businesses trust us with their logistics needs.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a
-                  href="/agreement"
+                <Link
+                  to={"/agreement"}
                   className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-white text-blue-900 rounded-lg hover:bg-gray-100 transition-colors duration-200 font-semibold text-sm sm:text-lg"
                 >
                   Start Your Partnership
-                </a>
-                <a
-                  href="/contact"
+                </Link>
+                <Link
+                  to={"/contact"}
                   className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 border-2 border-white text-white rounded-lg hover:bg-white hover:text-blue-900 transition-all duration-200 font-semibold text-sm sm:text-lg"
                 >
                   Contact Us Today
-                </a>
+                </Link>
               </div>
             </div>
           </div>

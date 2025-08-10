@@ -14,6 +14,7 @@ import huru from "../../public/huru.jpg";
 import ser3 from "../../public/ser3.jpg";
 import ser4 from "../../public/ser4.jpg";
 import ser5 from "../../public/ser5.jpg";
+import { Link } from "react-router-dom";
 const images = {
   ending1: ser2,
   ending2: huru,
@@ -48,18 +49,18 @@ const ServicesContainer = () => (
             businesses looking to expand globally.
           </p>
           <div className="flex gap-4 mt-4">
-            <a
-              href="/agreement"
+            <Link
+              to={"/agreement"}
               className="inline-flex items-center px-6 py-3 bg-blue-900 text-white rounded-lg hover:bg-blue-800 font-semibold"
             >
               <FileText className="w-5 h-5 mr-2" /> Send an Agreement
-            </a>
-            <a
-              href="/contact"
+            </Link>
+            <Link
+              to={"/contact"}
               className="inline-flex items-center px-6 py-3 border-2 border-blue-900 text-blue-900 rounded-lg hover:bg-blue-900 hover:text-white font-semibold"
             >
               <Mail className="w-5 h-5 mr-2" /> Contact us
-            </a>
+            </Link>
           </div>
         </div>
         <div className="flex-1">
@@ -173,18 +174,18 @@ const ServicesContainer = () => (
               international freight solutions that meet your unique needs.
             </p>
             <div className="flex gap-4 mt-4">
-              <a
-                href="/agreement"
+              <Link
+                to={"/agreement"}
                 className="inline-flex items-center px-6 py-3 bg-blue-900 text-white rounded-lg hover:bg-blue-800 font-semibold"
               >
                 <FileText className="w-5 h-5 mr-2" /> Send an Agreement
-              </a>
-              <a
-                href="/contact"
+              </Link>
+              <Link
+                to={"/contact"}
                 className="inline-flex items-center px-6 py-3 border-2 border-blue-900 text-blue-900 rounded-lg hover:bg-blue-900 hover:text-white font-semibold"
               >
                 <Phone className="w-5 h-5 mr-2" /> Contact us
-              </a>
+              </Link>
             </div>
           </div>
           <div className="flex-1">
@@ -236,18 +237,18 @@ const ServicesContainer = () => (
               is in the most capable hands.
             </p>
             <div className="flex gap-4 mt-4">
-              <a
-                href="/agreement"
+              <Link
+                to={"/agreement"}
                 className="inline-flex items-center px-6 py-3 bg-blue-900 text-white rounded-lg hover:bg-blue-800 font-semibold"
               >
                 <FileText className="w-5 h-5 mr-2" /> Send an Agreement
-              </a>
-              <a
-                href="/contact"
+              </Link>
+              <Link
+                to={"/contact"}
                 className="inline-flex items-center px-6 py-3 border-2 border-blue-900 text-blue-900 rounded-lg hover:bg-blue-900 hover:text-white font-semibold"
               >
                 <Globe className="w-5 h-5 mr-2" /> Contact us
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -286,18 +287,18 @@ const ServicesContainer = () => (
               will be transported as effectively and efficiently as possible.
             </p>
             <div className="flex gap-4 mt-4">
-              <a
-                href="/agreement"
+              <Link
+                to={"/agreement"}
                 className="inline-flex items-center px-6 py-3 bg-blue-900 text-white rounded-lg hover:bg-blue-800 font-semibold"
               >
                 <FileText className="w-5 h-5 mr-2" /> Send an Agreement
-              </a>
-              <a
-                href="/contact"
+              </Link>
+              <Link
+                to={"/contact"}
                 className="inline-flex items-center px-6 py-3 border-2 border-blue-900 text-blue-900 rounded-lg hover:bg-blue-900 hover:text-white font-semibold"
               >
                 <Headset className="w-5 h-5 mr-2" /> Contact us
-              </a>
+              </Link>
             </div>
           </div>
         </div>

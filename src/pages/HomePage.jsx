@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  ArrowRight,
-  Shield,
-  Clock,
-  Users,
-} from "lucide-react";
+import { ArrowRight, Shield, Clock, Users } from "lucide-react";
 
 // Import sections
 import TrackingSection from "../components/sections/TrackingSection";
@@ -49,8 +44,7 @@ const HomePage = () => {
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-          </div>
+          <div className="grid lg:grid-cols-2 gap-12 items-center"></div>
         </div>
 
         {/* Bottom Wave */}
@@ -77,10 +71,9 @@ const HomePage = () => {
       <TrackingSection />
       <PartnersSection />
       <PlatformworksSection />
-      <SteamedSection/>
+      <SteamedSection />
       <ServicesSection />
       <TestimonialsSection />
-
     </div>
   );
 };
