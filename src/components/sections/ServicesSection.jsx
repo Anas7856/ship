@@ -1,6 +1,8 @@
-import React from 'react';
-import { Truck, Package, Shield, Star } from 'lucide-react';
-
+import React from "react";
+import { Truck, Package, Shield, Star } from "lucide-react";
+import ser1 from "../../../public/ser1.jpg";
+import ser2 from "../../../public/ser2.jpg";
+import ser3 from "../../../public/ser3.jpg";
 const ServicesSection = () => {
   const services = [
     {
@@ -8,7 +10,7 @@ const ServicesSection = () => {
       title: "Dedicated Lanes",
       description:
         "We provide reliable and consistent trucking services for dedicated lanes, ensuring seamless, on-time deliveries tailored to your specific route needs. Whether you're shipping regionally or across the country, our dedicated lanes offer the flexibility and reliability your business depends on.",
-      image: "/public/ser1.jpg",
+      image: ser1,
       color: "blue",
     },
     {
@@ -16,7 +18,7 @@ const ServicesSection = () => {
       title: "Amazon Loads",
       description:
         "We specialize in handling Amazon loads with precision and efficiency. Our drivers are experienced in meeting Amazon's strict delivery requirements, ensuring your shipments are delivered on time and in perfect condition. Trust us for smooth and timely deliveries that keep your supply chain moving.",
-      image: "/public/ser2.jpg",
+      image: ser2,
       color: "green",
     },
     {
@@ -24,7 +26,7 @@ const ServicesSection = () => {
       title: "Government Contracts",
       description:
         "As a trusted Broker, we provide expert logistics solutions for government contracts, handling everything from sensitive materials to large-scale shipments. We ensure compliance with all regulations and deadlines, delivering your cargo safely and on time.",
-      image: "/public/ser3.jpg",
+      image: ser3,
       color: "purple",
     },
   ];
@@ -67,7 +69,8 @@ const ServicesSection = () => {
           </h2>
           <div className="w-24 h-1 bg-blue-200 rounded mx-auto mb-6"></div>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Valhalla Logistic LLC specializes in managing the transportation, storage, and distribution of goods with unmatched efficiency.
+            Valhalla Logistic LLC specializes in managing the transportation,
+            storage, and distribution of goods with unmatched efficiency.
           </p>
         </div>
 
@@ -80,7 +83,9 @@ const ServicesSection = () => {
                 key={index}
                 className={`${colors.bg} p-8 rounded-2xl hover:shadow-lg transition-all duration-300 group fade-in-up offering-card flex flex-col items-center`}
               >
-                <div className={`${colors.iconBg} w-16 h-16 rounded-xl flex items-center justify-center mb-4 offering-icon`}>
+                <div
+                  className={`${colors.iconBg} w-16 h-16 rounded-xl flex items-center justify-center mb-4 offering-icon`}
+                >
                   <div className={colors.iconText}>{service.icon}</div>
                 </div>
                 <div className="offering-image mb-4">
