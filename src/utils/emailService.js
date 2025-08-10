@@ -1,14 +1,20 @@
-// Updated email service to work with backend API
-const API_BASE_URL = "https://serverg-lc8z.onrender.com/";
+// =============================
+// Email Service (Frontend Safe)
+// =============================
+
+// Use base URL without trailing slash to avoid "//" in requests
+const API_BASE_URL = "https://serverg-lc8z.onrender.com";
 
 // Main email sending function using backend API
 export const sendAgreementEmail = async (formData, pdfBlob) => {
   try {
+    // Validate PDF Blob
     if (!(pdfBlob instanceof Blob)) {
+      console.error("Provided PDF is not a valid Blob:", pdfBlob);
       throw new Error("Invalid PDF blob provided");
     }
 
-    // Validate required form data
+    // Validate required fields
     const requiredFields = [
       "carrierName",
       "usdotNumber",
@@ -31,27 +37,28 @@ export const sendAgreementEmail = async (formData, pdfBlob) => {
       throw new Error("Invalid email format");
     }
 
-    // Prepare form data for submission
+    // Prepare FormData for submission
     const formDataToSend = new FormData();
-
-    // Add all form fields
     Object.keys(formData).forEach((key) => {
-      if (
-        formData[key] !== null &&
-        formData[key] !== undefined &&
-        formData[key] !== ""
-      ) {
+      if (formData[key] != null && formData[key] !== "") {
         formDataToSend.append(key, formData[key]);
       }
     });
-    console.log(pdfBlob);
-    // Add PDF attachment if provided
-    if (pdfBlob) {
-      const filename = `Agreement_${formData.carrierName.replace(
-        /[^a-zA-Z0-9]/g,
-        "_"
-      )}_${Date.now()}.pdf`;
-      formDataToSend.append("agreement_pdf", pdfBlob, filename);
+
+    // Add PDF attachment
+    const filename = `Agreement_${formData.carrierName.replace(
+      /[^a-zA-Z0-9]/g,
+      "_"
+    )}_${Date.now()}.pdf`;
+    formDataToSend.append("agreement_pdf", pdfBlob, filename);
+
+    // Debugging logs
+    console.log(
+      "📤 Sending Agreement to Backend:",
+      `${API_BASE_URL}/api/send-agreement`
+    );
+    for (let pair of formDataToSend.entries()) {
+      console.log(pair[0], pair[1]);
     }
 
     // Send to backend API
@@ -60,15 +67,16 @@ export const sendAgreementEmail = async (formData, pdfBlob) => {
       body: formDataToSend,
     });
 
-    const result = await response.json();
+    const result = await response.json().catch(() => ({}));
 
     if (!response.ok) {
+      console.error("❌ Backend error:", result);
       throw new Error(
         result.message || result.error || "Failed to send agreement"
       );
     }
 
-    console.log("Agreement sent successfully via backend:", result);
+    console.log("✅ Agreement sent successfully:", result);
 
     return {
       success: true,
@@ -79,12 +87,12 @@ export const sendAgreementEmail = async (formData, pdfBlob) => {
   } catch (error) {
     console.error("Email sending failed:", error);
 
-    // Fallback to Web3Forms if backend fails
+    // Fallback if backend is unreachable
     if (
       error.message.includes("fetch") ||
       error.message.includes("Failed to fetch")
     ) {
-      console.log("Backend unavailable, attempting fallback method...");
+      console.warn("⚠ Backend unavailable, attempting fallback method...");
       return await sendEmailViaWeb3Forms(formData, pdfBlob);
     }
 
@@ -92,14 +100,14 @@ export const sendAgreementEmail = async (formData, pdfBlob) => {
   }
 };
 
-// Fallback method using Web3Forms (keep as backup)
+// =============================
+// Web3Forms Fallback Method
+// =============================
 const sendEmailViaWeb3Forms = async (formData, pdfBlob) => {
   try {
-    const WEB3_FORMS_KEY = "ff60080c-a01f-4b68-a7cc-2f23b64bcdcf"; // Your Web3Forms key
+    const WEB3_FORMS_KEY = "ff60080c-a01f-4b68-a7cc-2f23b64bcdcf";
 
     const formDataToSend = new FormData();
-
-    // Basic form fields
     formDataToSend.append("access_key", WEB3_FORMS_KEY);
     formDataToSend.append(
       "subject",
@@ -124,13 +132,13 @@ const sendEmailViaWeb3Forms = async (formData, pdfBlob) => {
       formData.accountType || "Not provided"
     );
 
-    // Generate agreement ID and timestamp
+    // Generate IDs
     const agreementId = `VL-FALLBACK-${Date.now()}`;
     const submittedDate = new Date().toISOString();
     formDataToSend.append("agreement_id", agreementId);
     formDataToSend.append("submitted_date", submittedDate);
 
-    // Message content
+    // Message
     const message = generatePlainTextMessage(
       formData,
       agreementId,
@@ -138,7 +146,7 @@ const sendEmailViaWeb3Forms = async (formData, pdfBlob) => {
     );
     formDataToSend.append("message", message);
 
-    // Attach PDF file
+    // Attach PDF
     if (pdfBlob) {
       const filename = `Agreement_${formData.carrierName.replace(
         /[^a-zA-Z0-9]/g,
@@ -155,30 +163,32 @@ const sendEmailViaWeb3Forms = async (formData, pdfBlob) => {
 
     const result = await response.json();
 
-    if (result.success) {
-      return {
-        success: true,
-        response: result,
-        agreementId,
-        submittedDate,
-      };
-    } else {
-      throw new Error(result.message || "Email sending failed");
+    if (!result.success) {
+      throw new Error(result.message || "Web3Forms email sending failed");
     }
+
+    console.log("✅ Web3Forms Fallback Sent:", result);
+
+    return {
+      success: true,
+      response: result,
+      agreementId,
+      submittedDate,
+    };
   } catch (error) {
     console.error("Web3Forms fallback failed:", error);
     throw error;
   }
 };
 
-// Send contact form email
+// =============================
+// Contact Form Email
+// =============================
 export const sendContactEmail = async (contactData) => {
   try {
     const response = await fetch(`${API_BASE_URL}/api/contact`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(contactData),
     });
 
@@ -190,24 +200,21 @@ export const sendContactEmail = async (contactData) => {
       );
     }
 
-    return {
-      success: true,
-      messageId: result.messageId,
-    };
+    return { success: true, messageId: result.messageId };
   } catch (error) {
     console.error("Contact email sending failed:", error);
     throw new Error(`Failed to send contact message: ${error.message}`);
   }
 };
 
-// Test email functionality
+// =============================
+// Test Email Functionality
+// =============================
 export const testEmailService = async () => {
   try {
     const response = await fetch(`${API_BASE_URL}/api/test-email`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
     });
 
     const result = await response.json();
@@ -223,9 +230,11 @@ export const testEmailService = async () => {
   }
 };
 
-// Helper function to generate plain text message
-const generatePlainTextMessage = (formData, agreementId, submittedDate) => {
-  return `
+// =============================
+// Generate Plain Text Message
+// =============================
+const generatePlainTextMessage = (formData, agreementId, submittedDate) =>
+  `
 NEW BROKER/CARRIER AGREEMENT SUBMITTED
 
 CARRIER INFORMATION:
@@ -263,12 +272,13 @@ The signed broker/carrier agreement is attached as a PDF file for your review an
 ---
 Valhalla Logistics LLC
 1255 Franklin Ave Suite 350, Garden City, NY 11530
-Phone: 2204048003030| Email: Henry@vallhallalogisticllc.com
+Phone: 2204048003030 | Email: Henry@vallhallalogisticllc.com
 USDOT# 4091738 | MC# 1558919
-  `.trim();
-};
+`.trim();
 
-// Check API connection
+// =============================
+// API Connection Check
+// =============================
 export const checkAPIConnection = async () => {
   try {
     const response = await fetch(`${API_BASE_URL}/health`);
@@ -280,9 +290,6 @@ export const checkAPIConnection = async () => {
       timestamp: result.timestamp,
     };
   } catch (error) {
-    return {
-      connected: false,
-      error: error.message,
-    };
+    return { connected: false, error: error.message };
   }
 };
