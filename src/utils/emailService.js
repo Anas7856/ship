@@ -1,7 +1,6 @@
-import cors from "cors";
 // Updated email service to work with backend API
 const API_BASE_URL = "https://serverg-lc8z.onrender.com/";
-app.use(cors({ origin: "*" }));
+
 // Main email sending function using backend API
 export const sendAgreementEmail = async (formData, pdfBlob) => {
   try {
